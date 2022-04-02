@@ -71,24 +71,16 @@ bot.on('inline_query', ctx => {
 })
  */
 bot.on('inline_query', async (ctx) => {
-    const apiUrl = `http://recipepuppy.com/api/?q=${ctx.inlineQuery.query}`
-    const response = await fetch(apiUrl)
-    const { results } = await response.json()
-    const recipes = results
-        // @ts-ignore
-        .filter(({ thumbnail }) => thumbnail)
-        // @ts-ignore
-        .map(({ title, href, thumbnail }) => ({
-            type: 'article',
-            id: thumbnail,
-            title: title,
-            description: title,
-            thumb_url: thumbnail,
-            input_message_content: {
-                message_text: title
-            },
-        }))
-    return await ctx.answerInlineQuery(recipes)
+    return  ctx.answerInlineQuery({
+        type: 'article',
+        id: '13',
+        title: 'zalupa',
+        description: 'popa',
+        thumb_url: 'zalupa',
+        input_message_content: {
+            message_text: 'test'
+        },
+    })
 })
 
 bot.on('chosen_inline_result', ({ chosenInlineResult }) => {
