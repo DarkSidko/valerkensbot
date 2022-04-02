@@ -93,7 +93,7 @@ bot.on('inline_query', async (ctx) => {
         },
     }, {
         type: 'article',
-        id: '1',
+        id: '2',
         title: 'Крублики',
         description: 'Как рублики, только как',
         input_message_content: {
