@@ -49,7 +49,7 @@ bot.command('water', ctx => {
     waterCounter++;
     if (waterCounter >= 5) {
         waterCounter=0;
-        ctx.reply('Саша, держи стакан водички💦💦💦')
+        return ctx.reply('Саша, держи стакан водички💦💦💦')
     }
     ctx.reply(`Вам нужно помочь Саше набрать на стакан водички, пока собрано только ${waterCounter}/5`)
 })
