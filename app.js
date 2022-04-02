@@ -71,19 +71,21 @@ bot.on('inline_query', ctx => {
 })
  */
 bot.on('inline_query', async (ctx) => {
-    return  ctx.answerInlineQuery({
+    let text
+    if (!Number(ctx.update.inline_query.query)) {
+        text = `Ты охуел, цифры пиши дон, какой бля ${ctx.update.inline_query.query}`
+    } else {
+        text = `${(parseInt(ctx.update.inline_query.query) * 5.3).toFixed(2)} тенге дон`
+    }
+    return ctx.answerInlineQuery([{
         type: 'article',
-        id: '13',
-        title: 'zalupa',
-        description: 'popa',
-        thumb_url: 'zalupa',
+        id: '1',
+        title: 'Тенге',
+        description: 'переводим пока вы дымите',
         input_message_content: {
-            message_text: 'test'
+            message_text: text
         },
-    })
+    }])
 })
 
-bot.on('chosen_inline_result', ({ chosenInlineResult }) => {
-    console.log('chosen inline result', chosenInlineResult)
-})
 bot.launch()
