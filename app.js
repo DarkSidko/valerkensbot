@@ -54,10 +54,47 @@ bot.command('water', ctx => {
     return ctx.reply(`Вам нужно помочь Саше набрать на стакан водички, пока собрано только ${waterCounter}/5`)
 })
 bot.hears(/курс/i, ctx => ctx.reply('мне пока курс цеплять западло, я считаю он 5.3'))
+/*
 bot.on('inline_query', ctx => {
     if (!Number(ctx.message)) {
         return ctx.answerInlineQuery(`Ты охуел, цифры пиши дон, какой бля ${ctx.message}`)
     }
     return ctx.answerInlineQuery(`${parseInt(ctx.message) * 5.3} тенге дон`)
+    ctx.answerInlineQuery([
+        { "type": "photo",
+            "id": "4049646",
+            "photo_url": "https://pixabay.com/get/g60377705db16ca6d3f664a985594f0c63762a2f18b59ba2c08b2eab0c0d30b2218a3ce32e2fe69c24ba999be0de9a45b43f3535a63f324f58983eabc59e9836c_640.jpg",
+            "thumb_url": "https://cdn.pixabay.com/photo/2019/03/11/22/14/roses-4049646_150.jpg",
+            "title": "blo",
+            "description": "roses, bouquet, blo"
+        }])
+})
+ */
+bot.on('inline_query', async (ctx) => {
+    const apiUrl = `http://recipepuppy.com/api/?q=${ctx.inlineQuery.query}`
+    const response = await fetch(apiUrl)
+    const { results } = await response.json()
+    const recipes = results
+        // @ts-ignore
+        .filter(({ thumbnail }) => thumbnail)
+        // @ts-ignore
+        .map(({ title, href, thumbnail }) => ({
+            type: 'article',
+            id: thumbnail,
+            title: title,
+            description: title,
+            thumb_url: thumbnail,
+            input_message_content: {
+                message_text: title
+            },
+            reply_markup: Markup.inlineKeyboard([
+                Markup.button.url('Go to recipe', href)
+            ])
+        }))
+    return await ctx.answerInlineQuery(recipes)
+})
+
+bot.on('chosen_inline_result', ({ chosenInlineResult }) => {
+    console.log('chosen inline result', chosenInlineResult)
 })
 bot.launch()
