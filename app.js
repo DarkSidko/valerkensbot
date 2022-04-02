@@ -56,8 +56,8 @@ bot.command('water', ctx => {
 bot.hears(/курс/i, ctx => ctx.reply('мне пока курс цеплять западло, я считаю он 5.3'))
 bot.on('inline_query', ctx => {
     if (!Number(ctx.message)) {
-        return ctx.reply(`Ты охуел, цифры пиши дон, какой бля ${ctx.message}`)
+        return ctx.answerInlineQuery(`Ты охуел, цифры пиши дон, какой бля ${ctx.message}`)
     }
-    return ctx.reply(`${parseInt(ctx.message) * 5.3} тенге дон`)
+    return ctx.answerInlineQuery(`${parseInt(ctx.message) * 5.3} тенге дон`)
 })
 bot.launch()
