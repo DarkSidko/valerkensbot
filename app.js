@@ -1,3 +1,4 @@
+const {Markup} = require("telegraf/typings/markup");
 require('dotenv').config();
 
 const { Telegraf } = require('telegraf')
