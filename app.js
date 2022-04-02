@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const { Telegraf } = require('telegraf')
+let waterCounter = 0;
 
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
 bot.start((ctx) => ctx.reply('Бери кримсоду'))
@@ -44,4 +45,12 @@ bot.hears(/служ/i, ctx => ctx.reply(`я не хочу, мне надо`))
 bot.hears(/аралба/i, ctx => ctx.reply(`аналбаев`))
 bot.hears(/утро/i, ctx => ctx.reply(`вечер в хату`))
 bot.hears(/ваканс/i, ctx => ctx.reply(`просто выстави #open_to_work в LinkedIn`))
+bot.command('water', ctx => {
+    waterCounter++;
+    if (waterCounter >= 5) {
+        waterCounter=0;
+        ctx.reply('Саша, держи стакан водички')
+    }
+    ctx.reply(`Вам нужно помочь Саше набрать на стакан водички, пока собрано только ${waterCounter}/5`)
+})
 bot.launch()
