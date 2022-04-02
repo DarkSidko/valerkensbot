@@ -1,4 +1,3 @@
-const {Markup} = require("telegraf/typings/markup");
 require('dotenv').config();
 
 const { Telegraf } = require('telegraf')
@@ -88,9 +87,6 @@ bot.on('inline_query', async (ctx) => {
             input_message_content: {
                 message_text: title
             },
-            reply_markup: Markup.inlineKeyboard([
-                Markup.button.url('Go to recipe', href)
-            ])
         }))
     return await ctx.answerInlineQuery(recipes)
 })
