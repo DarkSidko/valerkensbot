@@ -72,10 +72,16 @@ bot.on('inline_query', ctx => {
  */
 bot.on('inline_query', async (ctx) => {
     let text
+    let text2
     if (!Number(ctx.update.inline_query.query)) {
         text = `Ты охуел, цифры пиши дон, какой бля ${ctx.update.inline_query.query}`
     } else {
         text = `${(parseInt(ctx.update.inline_query.query) * 5.3).toFixed(2)} тенге дон`
+    }
+    if (!Number(ctx.update.inline_query.query)) {
+        text2 = `Не нужно ${ctx.update.inline_query.query}, но можно`
+    } else {
+        text2 = `${(parseInt(ctx.update.inline_query.query) / 5.3).toFixed(2)} крубликов`
     }
     return ctx.answerInlineQuery([{
         type: 'article',
@@ -84,6 +90,14 @@ bot.on('inline_query', async (ctx) => {
         description: 'переводим пока вы дымите',
         input_message_content: {
             message_text: text
+        },
+    }, {
+        type: 'article',
+        id: '1',
+        title: 'Крублики',
+        description: 'Как рублики, только как',
+        input_message_content: {
+            message_text: text2
         },
     }])
 })
